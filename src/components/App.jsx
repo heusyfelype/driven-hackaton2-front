@@ -1,7 +1,7 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useEffect, useNavigate, useLocation, useState } from 'react';
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-import FirstScreen from "./FirstScreen";
+import FirstScreen from './FirstScreen';
 
 export default function App() {
     return (
@@ -10,6 +10,5 @@ export default function App() {
                 <Route path="/" element={<FirstScreen />} />
             </Routes>
         </BrowserRouter>
-    )
+    );
 }
-

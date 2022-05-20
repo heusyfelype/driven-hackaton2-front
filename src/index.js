@@ -1,9 +1,8 @@
+import ReactDOM from 'react-dom';
+import './css/reset.css';
 
-import ReactDOM from "react-dom";
-import "./css/reset.css"
+import App from './components/App';
 
-import App from "./components/App";
+const apllication = App();
 
-const apllication = App()
-
-ReactDOM.render(apllication, document.querySelector(".root"));
+ReactDOM.render(apllication, document.querySelector('.root'));
