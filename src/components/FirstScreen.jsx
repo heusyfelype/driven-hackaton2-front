@@ -1,37 +1,36 @@
 import styled from 'styled-components';
 import {useState, useEffect} from "react";
 import {Link, useNavigate} from "react-router-dom";
-import axios from "axios";
 
 
 export default function FirstScreen() {
     
     const navigate = useNavigate();
     const perguntas = [
-        {id: 1, pergunta: "Inglês"},
-        {id: 2, pergunta: "Culinária"},
-        {id: 3, pergunta: "Matemática"}
+        {id: 1, pergunta: "Inglês", tema: "English"},
+        {id: 2, pergunta: "Culinária", tema: "Culinary"},
+        {id: 3, pergunta: "Matemática", tema: "Math"}
     ];
     useEffect(()=>{
         console.log("teste");
     },[]);
 
-    function responder(tema, dificuldade) {
-        navigate("/question", {state: {tema, dificuldade}});
+    function responder(tema, dificuldade, pergunta, dificuldadePT) {
+        navigate("/question", {state: {tema, dificuldade, pergunta, dificuldadePT}});
     }
 
     return (
         <PrimeiraTela>
             <h1>Education</h1>
-            <p>Olá,</p><br></br><br></br> <p>o que você irá aprender hoje?</p>
+            <p>Olá <br/> <br/> <br/> o que você irá aprender hoje?</p>
             <ul>
             {perguntas.map(tema =>
                 (<li className='tema' key={tema.id}>
                     <h3>{tema.pergunta}</h3>
                     <div className='botoes'>
-                        <button onClick={()=>{responder(tema.pergunta, "begginer");}}>Básico</button>
-                        <button onClick={()=>{responder(tema.pergunta, "intermediate");}}>Médio</button>
-                        <button onClick={()=>{responder(tema.pergunta, "advanced");}}>Difícil</button>
+                        <button onClick={()=>{responder(tema.tema, "beginner", tema.pergunta, "Básico");}}>Básico</button>
+                        <button onClick={()=>{responder(tema.tema, "intermediate", tema.pergunta, "Médio");}}>Médio</button>
+                        <button onClick={()=>{responder(tema.tema, "advanced", tema.pergunta, "Difícil");}}>Difícil</button>
                     </div>
                 </li>)
             )}
@@ -53,11 +52,12 @@ const PrimeiraTela = styled.main`
         font-size: 30px;
         color: #a69dff;
         margin-bottom: 15px;
+        font-weight: bold;
     }
 
     h3 {
         color:#333333;
-        margin-left: 15px;
+        //margin-left: 15px;
     }
 
     p {
@@ -73,18 +73,18 @@ const PrimeiraTela = styled.main`
         width: 100%;
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 40px;
     }
 
     .tema {
         border-radius: 20px;
         background-color: #f9f9f9;
         //background-color: red;
-        box-shadow: 0px 30px 50px -30px rgba(0, 0, 0, 0.15);
+        box-shadow: 0px 20px 100px -30px rgba(0, 0, 0, 0.3);
         //max-width: 400px;
         //width: 100%;
-        min-height: 90px;
-        padding: 10px;
+        min-height: 130px;
+        padding: 20px;
         display: flex;
         justify-content: space-between;
         flex-direction: column;
@@ -102,7 +102,7 @@ const PrimeiraTela = styled.main`
                 background-color: #a66aff;
                 color: #f9f9f9;
                 width: 100%;
-                padding: 3px;
+                padding: 10px 0;
             }
         }
 
