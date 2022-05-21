@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -11,6 +11,7 @@ export default function SecondScreen() {
     const [selectedQuestion, setSelectedQuestion] = useState(null);
     const [showVideo, setShowVideo] = useState(false);
 
+    const video = useRef();
 
     function randomNumber(min, max) {
         return Math.floor(Math.random() * (max - min)) + min;
@@ -28,24 +29,6 @@ export default function SecondScreen() {
         console.log(tema, dificuldade)
         const URL = "https://driven-hackaton2.herokuapp.com";
         const promise = axios.get(URL + `/questions?topic=${tema}&level=${dificuldade}`);
-        const perguntaTemp = {
-            _id: "628820d36273bee2130a2909",
-            question: "Qual o plural de THIS?",
-            alternatives: [
-                {
-                    a: "These"
-                },
-                {
-                    b: "That"
-                },
-                {
-                    c: "Those"
-                }
-            ],
-            answer: "a",
-            level: "beginner",
-            link: "https://www.youtube.com/embed/IsYP64DUP1c"
-        };
         promise.then(response => {
             console.log(response.data);
             const index = randomNumber(0, response.data.length - 1);
@@ -91,19 +74,19 @@ export default function SecondScreen() {
                 </$Card>
 
 
-                <$NeedHelp onClick={() => { setShowVideo(true) }}>
+                <$NeedHelp onClick={() => { setShowVideo(!showVideo) }}>
                     <p>
                         Precisa de ajuda com este
                         assunto?
                         Veja o conteúdo
-                        que selecionamo!
+                        que selecionamos!
                     </p>
                     <ion-icon name="chevron-down-outline"></ion-icon>
                 </$NeedHelp>
 
                 {showVideo ?
                     <$Video>
-                        <iframe src={question?.link} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                        <iframe ref={video} src={question?.link} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                     </$Video> :
                     <></>
                 }
